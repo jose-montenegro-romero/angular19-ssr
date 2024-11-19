@@ -1,0 +1,14 @@
+<div class="d-flex vh-100 text-center">
+  <div class="cover-container d-flex justify-content-center w-100 p-3 mx-auto flex-column">
+    <main class="px-3">
+      @let data = artist();
+      @if (data.images.length > 0 ) {
+      <img class="rounded-circle" [ngSrc]="data.images[0].url" alt="" width="300" height="300" priority="true" />
+      }
+      <h1>{{ data.name | uppercase }}</h1>
+      <p class="lead">
+        {{ data.genres?.join(", ") }}
+      </p>
+    </main>
+  </div>
+</div>

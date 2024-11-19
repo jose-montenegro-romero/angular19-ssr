@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row text-center">
+    <h1>{{ title() }}</h1>
+  </div>
+  <div class="row mt-5">
+    @for (item of dataAlbum(); track item.id) {
+    <div class="col-12 mb-2">
+      <app-card
+        [id]="item.id"
+        [title]="item.name"
+        [urlMp3]="item.preview_url"
+      ></app-card>
+    </div>
+    } 
+  </div>
+</div>

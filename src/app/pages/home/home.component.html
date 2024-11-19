@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row text-center">
+    <h1 class="text-center">Álbumes</h1>
+  </div>
+
+  <div class="row mt-5">
+    @for (item of dataAlbums(); track item.id; let idx = $index) {
+    <div class="col-lg-3 col-md-12 mb-2">
+      <app-card-detail
+        [id]="item.id"
+        [title]="item.name + ' - ' + item.artists[0].name"
+        [urlImage]="item.images[0].url"
+        [url]="'/' + item.id"
+        [priorityImage]="idx < 5"
+        (redirectUrl)="redirectCardDetail($event)"
+      ></app-card-detail>
+      <div class="d-grid gap-2">
+        <a
+          [routerLink]="'/artista/' + item.artists[0].id"
+          class="btn btn-success btn-block"
+          >Ver artista</a
+        >
+      </div>
+    </div>
+    }
+  </div>
+</div>
