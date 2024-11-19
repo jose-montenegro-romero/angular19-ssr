@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { RenderMode } from '@angular/ssr';
 // Guards
 import { loginGuard } from '@guards/login/login.guard';
 // Services
@@ -11,6 +12,7 @@ export const routes: Routes = [
     providers: [HomeService],
     canActivate: [loginGuard],
     title: 'Artista',
+    // mode: RenderMode.Client, serverRouteConfig ServerRoute[]
     loadComponent: () =>
       import('./pages/artist-detail/artist-detail.component').then(
         (mod) => mod.ArtistDetailComponent
