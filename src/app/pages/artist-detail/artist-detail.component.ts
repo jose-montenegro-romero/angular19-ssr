@@ -11,12 +11,11 @@ import { IArtist } from '@models/artist';
 import { HomeService } from '@services/home.service';
 
 @Component({
-  selector: 'app-artist-detail',
-  standalone: true,
-  imports: [CommonModule, NgOptimizedImage],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './artist-detail.component.html',
-  styleUrl: './artist-detail.component.scss',
+    selector: 'app-artist-detail',
+    imports: [CommonModule, NgOptimizedImage],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './artist-detail.component.html',
+    styleUrl: './artist-detail.component.scss'
 })
 export class ArtistDetailComponent {
   public artist: WritableSignal<IArtist> = signal({ images: [] });

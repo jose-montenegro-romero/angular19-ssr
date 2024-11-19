@@ -12,12 +12,11 @@ import { CardDetailComponent } from '../../shared/components/card-detail/card-de
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, CardDetailComponent, RouterLink],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+    selector: 'app-home',
+    imports: [CommonModule, CardDetailComponent, RouterLink],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 

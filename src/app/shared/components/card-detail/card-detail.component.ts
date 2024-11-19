@@ -9,12 +9,11 @@ import {
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-card-detail',
-  standalone: true,
-  imports: [CommonModule, RouterLink, NgOptimizedImage],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './card-detail.component.html',
-  styleUrl: './card-detail.component.scss',
+    selector: 'app-card-detail',
+    imports: [CommonModule, RouterLink, NgOptimizedImage],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './card-detail.component.html',
+    styleUrl: './card-detail.component.scss'
 })
 export class CardDetailComponent {
   public id: InputSignal<string> = input.required<string>();
