@@ -25,7 +25,7 @@ export class HomeComponent {
   private homeDetailService = inject(HomeDetailService);
 
   //Data
-  public dataAlbums: Signal<Album[]> = toSignal(this.homeService.getAlbumsApi(), { initialValue: [] });
+  public dataAlbums: Signal<Album[]> = this.homeService.albums;
 
   redirectCardDetail(event: any): void {    
     this.homeDetailService.set({ id: event.id, title: event.title });
