@@ -1,16 +1,13 @@
 import {
   CommonModule,
-  NgOptimizedImage,
-  isPlatformBrowser,
+  NgOptimizedImage
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   input,
   InputSignal,
   OnInit,
-  PLATFORM_ID,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -33,14 +30,11 @@ export class ArtistDetailComponent implements OnInit {
   public artist: WritableSignal<IArtist> = signal({ images: [] });
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: string,
     private homeService: HomeService
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.getArtist(this.id());
-    }
+    this.getArtist(this.id());
   }
 
   getArtist(id: string) {

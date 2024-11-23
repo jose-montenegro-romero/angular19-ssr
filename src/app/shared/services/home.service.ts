@@ -12,19 +12,29 @@ export class HomeService {
   private httpclient = inject(HttpClient);
 
   public album = signal<Track[]>([]);
-  public albums = toSignal(
-    this.httpclient
+  // public albums = toSignal(
+  //   this.httpclient
+  //     .get<Album[]>('https://api.spotify.com/v1/browse/new-releases?country=CO')
+  //     .pipe(
+  //       map((response: any) => {
+  //         return response.albums.items;
+  //       })
+  //     ),
+  //   { initialValue: [] }
+  // );
+
+  setAlbums(id: string) {
+    this.getAlbumApi(id).subscribe((track) => this.album.set(track));
+  }
+
+  getAlbumsApi(): Observable<Album[]> {
+    return this.httpclient
       .get<Album[]>('https://api.spotify.com/v1/browse/new-releases?country=CO')
       .pipe(
         map((response: any) => {
           return response.albums.items;
         })
-      ),
-    { initialValue: [] }
-  );
-
-  setAlbums(id: string) {
-    this.getAlbumApi(id).subscribe((track) => this.album.set(track));
+      );
   }
 
   getAlbumApi(id: string): Observable<Track[]> {

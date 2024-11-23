@@ -8,6 +8,7 @@ import {
   withViewTransitions,
 } from '@angular/router';
 import {
+  HttpRequest,
   provideHttpClient,
   withFetch,
   withInterceptors,
@@ -15,6 +16,7 @@ import {
 import {
   provideClientHydration,
   withEventReplay,
+  withHttpTransferCacheOptions,
   withIncrementalHydration,
 } from '@angular/platform-browser';
 // Routes
@@ -28,6 +30,15 @@ export const appConfig: ApplicationConfig = {
     // provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
-    provideClientHydration(withEventReplay(), withIncrementalHydration()),
+    provideClientHydration(
+      withEventReplay(),
+      withIncrementalHydration(),
+      withHttpTransferCacheOptions({
+        filter: (req: HttpRequest<unknown>) => true, // to filter
+        includeHeaders: [], // to include headers
+        includePostRequests: false, // to include POST
+        includeRequestsWithAuthHeaders: false, // to include with auth
+      })
+    ),
   ],
 };
