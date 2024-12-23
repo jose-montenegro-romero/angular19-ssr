@@ -18,6 +18,8 @@ import { Album } from '@models/album';
 // Components
 import { CardDetailComponent } from '../../shared/components/card-detail/card-detail.component';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { SsrService } from '@services/ssr/ssr.service';
+import { LocalstorageService } from '@services/localstorage/localstorage.service';
 
 @Component({
   selector: 'app-home',
@@ -26,47 +28,55 @@ import { toSignal } from '@angular/core/rxjs-interop';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
-  ngOnInit() {
-
+export class HomeComponent {
+  constructor(
+    private ssrService: SsrService,
+    private localstorageService: LocalstorageService
+  ) {
+    console.log('Es navegador: ', ssrService.isBrowser());
     afterNextRender(() => {
-      const driverObj = driver({
-        showProgress: true,
-        animate: true,
-        allowClose: false,
-        nextBtnText: '—›',
-        prevBtnText: '‹—',
-        doneBtnText: 'Finalizar',
-        showButtons: ['next', 'previous'],
-        steps: [
-          {
-            element: '#div-title',
-            popover: {
-              title: 'Título',
-              description: 'Este es el título de la página web.',
-              side: 'bottom',
-              align: 'start',
+      const temp = localstorageService.get('onboardingComplete');
+      console.log(temp);
+      
+      if (!temp) {
+        const driverObj = driver({
+          showProgress: true,
+          animate: true,
+          allowClose: false,
+          nextBtnText: '—›',
+          prevBtnText: '‹—',
+          doneBtnText: 'Finalizar',
+          showButtons: ['next', 'previous'],
+          steps: [
+            {
+              element: '#div-title',
+              popover: {
+                title: 'Título',
+                description: 'Este es el título de la página web.',
+                side: 'bottom',
+                align: 'start',
+              },
             },
-          },
-          {
-            element: '#div-content',
-            popover: {
-              title: 'Contenido',
-              description: 'Estos son los discos disponibles.',
-              side: 'top',
-              align: 'start',
+            {
+              element: '#div-content',
+              popover: {
+                title: 'Contenido',
+                description: 'Estos son los discos disponibles.',
+                side: 'top',
+                align: 'start',
+              },
             },
-          },
-          {
-            popover: {
-              title: 'Feliz día',
-              description: 'Gracias por seguir nuestro tutorial.',
+            {
+              popover: {
+                title: 'Feliz día',
+                description: 'Gracias por seguir nuestro tutorial.',
+              },
             },
-          },
-        ],
-      });
-  
-      driverObj.drive();
+          ],
+        });
+
+        driverObj.drive();
+      }
     });
   }
 
