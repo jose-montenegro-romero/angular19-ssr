@@ -35,10 +35,8 @@ export class HomeComponent {
   ) {
     console.log('Es navegador: ', ssrService.isBrowser());
     afterNextRender(() => {
-      const temp = localstorageService.get('onboardingComplete');
-      console.log(temp);
-      
-      if (!temp) {
+
+      if (!localstorageService.get('onboardingComplete')) {
         const driverObj = driver({
           showProgress: true,
           animate: true,
@@ -47,6 +45,13 @@ export class HomeComponent {
           prevBtnText: '‹—',
           doneBtnText: 'Finalizar',
           showButtons: ['next', 'previous'],
+          onNextClick: () => {
+            if (driverObj.isLastStep()) {
+              localstorageService.set('onboardingComplete', 'true');
+            }
+
+            driverObj.moveNext();
+          },
           steps: [
             {
               element: '#div-title',
