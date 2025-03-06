@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { Observable, map } from 'rxjs';
 // Interfaces
 import { Album } from '@models/album';
@@ -47,13 +47,21 @@ export class HomeService {
       );
   }
 
-  getArtistApi(id: string): Observable<IArtist> {
-    return this.httpclient
-      .get<IArtist>(`https://api.spotify.com/v1/artists/${id}`)
-      .pipe(
-        map((response: IArtist) => {
-          return response;
-        })
-      );
+  getArtistApi(id: Signal<string>): HttpResourceRef<IArtist> {
+    return httpResource<IArtist>(
+      () => ({
+        url: `https://api.spotify.com/v1/artists/${id()}`,
+        method: "GET",
+        headers: {
+          accept: "application/json",
+        },
+        reportProgress: true,
+        // body: null,
+        transferCache: false,
+        withCredentials: false,
+      }),
+      { defaultValue: { images: [] } }
+    );
   }
 }
+

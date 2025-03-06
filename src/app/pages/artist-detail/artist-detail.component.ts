@@ -5,9 +5,10 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  inject,
   input,
   InputSignal,
-  OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -23,23 +24,19 @@ import { HomeService } from '@services/home.service';
   templateUrl: './artist-detail.component.html',
   styleUrl: './artist-detail.component.scss',
 })
-export class ArtistDetailComponent implements OnInit {
+export class ArtistDetailComponent {
   //InputBinding
   public id: InputSignal<string> = input.required<string>();
 
-  public artist: WritableSignal<IArtist> = signal({ images: [] });
+  // Injections
+  private homeService = inject(HomeService);
 
-  constructor(
-    private homeService: HomeService
-  ) {}
+  // public artist: WritableSignal<IArtist> = signal({ images: [] });
 
-  ngOnInit(): void {
-    this.getArtist(this.id());
-  }
+  public artist = this.homeService.getArtistApi(this.id);
 
-  getArtist(id: string) {
-    this.homeService.getArtistApi(id).subscribe((data: IArtist) => {
-      this.artist.set(data);
-    });
-  }
+  artistIsLoading = computed(() =>
+    this.artist.isLoading()
+  );
+
 }
