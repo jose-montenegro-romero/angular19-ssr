@@ -21,6 +21,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (!token) {
     return spotifyAuthService.getAccessToken().pipe(
       switchMap((token) => {
+        // console.log("este es el token nuevo", token);
         ssrCookieService.set('token', token.access_token, token.expires_in);
         req = addToken(req, token.access_token);
         return next(req);

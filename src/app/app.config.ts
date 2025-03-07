@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
         filter: (req: HttpRequest<unknown>) => true, // to filter
         includeHeaders: [], // to include headers
         includePostRequests: false, // to include POST
-        includeRequestsWithAuthHeaders: false, // to include with auth
+        includeRequestsWithAuthHeaders: true, // to include with auth
       })
     ),
   ],
