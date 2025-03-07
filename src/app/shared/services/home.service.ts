@@ -60,7 +60,7 @@ export class HomeService {
         transferCache: false,
         withCredentials: false,
       }),
-      { defaultValue: { images: [] } }
+      { defaultValue: { images: [], name: "No encontrado" } }
     );
   }
 }

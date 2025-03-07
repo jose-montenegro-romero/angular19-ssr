@@ -9,8 +9,6 @@ import {
   inject,
   input,
   InputSignal,
-  signal,
-  WritableSignal,
 } from '@angular/core';
 // Models
 import { IArtist } from '@models/artist';
@@ -31,12 +29,8 @@ export class ArtistDetailComponent {
   // Injections
   private homeService = inject(HomeService);
 
-  // public artist: WritableSignal<IArtist> = signal({ images: [] });
+  public artistResource = this.homeService.getArtistApi(this.id);
 
-  public artist = this.homeService.getArtistApi(this.id);
-
-  artistIsLoading = computed(() =>
-    this.artist.isLoading()
-  );
+  artist = computed(() => this.artistResource.value().name == "ROSÉ" ? {} as IArtist : this.artistResource.value());
 
 }
